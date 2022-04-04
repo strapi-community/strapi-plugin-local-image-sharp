@@ -5,7 +5,7 @@ const getEtag = require('etag')
 const Router = require('@koa/router');
 const { createIPX  } = require("ipx");
 
-async function createMiddleware (ipx) {
+function createMiddleware (ipx) {
   return async function ipxMiddleware(ctx) {
     const url = ctx.req.url.replace('/uploads', '').split('?')[0]
     // Parse URL
@@ -82,7 +82,7 @@ async function createMiddleware (ipx) {
 const plugin = {
   bootstrap({ strapi }) {
     const ipx = createIPX({
-      dir: `${strapi.dirs.dist.public}/uploads`,
+      dir: `${strapi.dirs?.dist?.public ?? strapi.dirs?.public}/uploads`,
     })
     const router = new Router();
     const middeware = createMiddleware(ipx)
