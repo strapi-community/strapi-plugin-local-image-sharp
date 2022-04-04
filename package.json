@@ -25,7 +25,10 @@
     "eslint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "ipx": "^0.9.4"
+    "@koa/router": "^10.1.1",
+    "etag": "^1.8.1",
+    "ipx": "^0.9.4",
+    "ufo": "^0.8.3"
   },
   "peerDependencies": {
     "@strapi/strapi": "^4.0.0"
