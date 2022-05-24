@@ -44,22 +44,41 @@ yarn add strapi-plugin-local-image-sharp
 
 ### Examples
 
+This plugin works by setting modifiers either the path, or in the query string parameters.
+
 Get original image:
 
 `http://localhost:1337/uploads/buffalo.png`
 
+#### Using path modifiers
+
 Change format to `webp` and keep other things same as source:
 
-`http://localhost:1337/uploads/f_webp/static/buffalo.png`
+`http://localhost:1337/uploads/f_webp/buffalo_56442f4096.png`
 
 Keep original format `png` and set width to `200`:
 
-`http://localhost:1337/uploads/w_200/static/buffalo.png`
+`http://localhost:1337/uploads/w_200/buffalo_56442f4096.png`
 
 You can combine modifiers using a coma, for example:
 Resize to `200x200px` using `embed` method and change format to `webp`:
 
-`http://localhost:1337/uploads/embed,f_webp,s_200x200/static/buffalo.png`
+`http://localhost:1337/uploads/embed,f_webp,s_200x200/buffalo_56442f4096.png`
+
+#### Using query parameters modifiers
+
+Change format to `webp` and keep other things same as source:
+
+`http://localhost:1337/uploads/buffalo_56442f4096.png?format=webp`
+
+Keep original format `png` and set width to `200`:
+
+`http://localhost:1337/uploads/buffalo_56442f4096.png?width=200`
+
+You can combine modifiers using a coma, for example:
+Resize to `200x200px` using `embed` method and change format to `webp`:
+
+`http://localhost:1337/uploads/buffalo_56442f4096.png?format=webp&resize=200x200&embed`
 
 ### Modifiers
 

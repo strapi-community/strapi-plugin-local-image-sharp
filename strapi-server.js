@@ -3,32 +3,37 @@
 const { decode } = require('ufo')
 const getEtag = require('etag')
 const Router = require('@koa/router');
+const qs = require('qs');
 const { createIPX  } = require("ipx");
 
 function createMiddleware (ipx) {
-  return async function ipxMiddleware(ctx) {
-    const url = ctx.req.url.replace('/uploads', '').split('?')[0]
-    // Parse URL
-    const [modifiersStr = '', ...idSegments] = url.substr(1 /* leading slash */).split('/')
-    const id = decode(idSegments.join('/'))
+  return async function ipxMiddleware(ctx, next) {
+    const [url, query] = ctx.req.url.replace('/uploads', '').split('?')
+    const [firstSegment = '', ...idSegments] = url.substr(1 /* leading slash */).split('/')
 
-    // Validate
-    if (!modifiersStr) {
-      return
-    }
-    if (!id || id === '/') {
-      return
-    }
-
-    // Contruct modifiers
-    const modifiers = Object.create(null)
-
-    // Read modifiers from first segment
-    if (modifiersStr !== '_') {
-      for (const p of modifiersStr.split(',')) {
-        const [key, value = ''] = p.split('_')
-        modifiers[key] = decode(value)
+    let id
+    let modifiers
+    if (!idSegments.length && firstSegment) {
+      id = firstSegment
+      modifiers = qs.parse(query)
+    } else {
+      id = decode(idSegments.join('/'))
+      modifiers = Object.create(null)
+      if (firstSegment !== '_') {
+        for (const p of firstSegment.split(',')) {
+          const [key, value = ''] = p.split('_')
+          modifiers[key] = decode(value)
+        }
       }
+    }
+
+    if (!id) {
+      await next()
+      return
+    }
+    if (!Object.keys(modifiers).length) {
+      await next()
+      return
     }
 
     // Create request
@@ -71,8 +76,9 @@ function createMiddleware (ipx) {
       ctx.body = data
     } catch (error) {
       const statusCode = parseInt(error.statusCode, 10) || 500
-      const statusMessage = error.statusMessage ? error.statusMessage : `IPX Error (${statusCode})`
+      const statusMessage = error.message ? `IPX Error (${error.message})` : `IPX Error (${statusCode})`
       strapi.log.debug(statusMessage)
+      console.error(error)
     
       ctx.status = statusCode
     }
@@ -80,7 +86,7 @@ function createMiddleware (ipx) {
 }
 
 const plugin = {
-  bootstrap({ strapi }) {
+  register({ strapi }) {
     const ipx = createIPX({
       dir: `${strapi.dirs?.dist?.public ?? strapi.dirs?.public}/uploads`,
     })
@@ -89,7 +95,7 @@ const plugin = {
   
     router.get('/uploads/(.*)', middeware)
   
-    strapi.server.router.use(router.routes());
+    strapi.server.use(router.routes());
   }
 }
 
