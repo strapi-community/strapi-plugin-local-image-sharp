@@ -88,7 +88,7 @@ function createMiddleware (ipx) {
 const plugin = {
   register({ strapi }) {
     const ipx = createIPX({
-      dir: `${strapi.dirs?.dist?.public ?? strapi.dirs?.public}/uploads`,
+      dir: `${strapi.dirs?.static?.public ?? strapi.dirs?.dist?.public ?? strapi.dirs?.public}/uploads`,
     })
     const router = new Router();
     const middeware = createMiddleware(ipx)
