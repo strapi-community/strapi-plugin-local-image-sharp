@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 
 const { decode } = require('ufo')
 const getEtag = require('etag')
-const Router = require('@koa/router');
-const qs = require('qs');
-const { createIPX  } = require("ipx");
+const Router = require('@koa/router')
+const qs = require('qs')
+const { createIPX } = require('ipx')
 
-function createMiddleware (ipx) {
+function createMiddleware(ipx) {
   return async function ipxMiddleware(ctx, next) {
     const [url, query] = ctx.req.url.replace('/uploads', '').split('?')
     const [firstSegment = '', ...idSegments] = url.substr(1 /* leading slash */).split('/')
@@ -79,7 +79,7 @@ function createMiddleware (ipx) {
       const statusMessage = error.message ? `IPX Error (${error.message})` : `IPX Error (${statusCode})`
       strapi.log.debug(statusMessage)
       console.error(error)
-    
+
       ctx.status = statusCode
     }
   }
@@ -88,15 +88,15 @@ function createMiddleware (ipx) {
 const plugin = {
   register({ strapi }) {
     const ipx = createIPX({
-      dir: `${strapi.dirs?.dist?.public ?? strapi.dirs?.public}/uploads`,
+      dir: `${strapi.dirs?.static?.public ?? strapi.dirs?.public}/uploads`,
     })
-    const router = new Router();
+    const router = new Router()
     const middeware = createMiddleware(ipx)
-  
+
     router.get('/uploads/(.*)', middeware)
-  
-    strapi.server.use(router.routes());
-  }
+
+    strapi.server.use(router.routes())
+  },
 }
 
-module.exports = plugin;
+module.exports = plugin
