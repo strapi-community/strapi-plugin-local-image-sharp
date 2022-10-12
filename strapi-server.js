@@ -10,7 +10,11 @@ function createMiddleware(ipx) {
   return async function ipxMiddleware(ctx, next) {
     const [url, query] = ctx.req.url.replace('/uploads', '').split('?')
     const [firstSegment = '', ...idSegments] = url.substr(1 /* leading slash */).split('/')
-
+    const allowType = ['JPEG', 'PNG', 'GIF', 'SVG', 'TIFF', 'ICO', 'DVU', 'JPG', 'WEBP'];
+    if(!allowType.includes(firstSegment.split('.').pop().toUpperCase())) {
+        await next()
+        return
+    }
     let id
     let modifiers
     if (!idSegments.length && firstSegment) {
