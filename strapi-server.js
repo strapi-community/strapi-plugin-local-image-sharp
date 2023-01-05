@@ -10,18 +10,15 @@ function createMiddleware(ipx) {
   return async function ipxMiddleware(ctx, next) {
     const [url, query] = ctx.req.url.replace('/uploads', '').split('?')
     const [firstSegment = '', ...idSegments] = url.substr(1 /* leading slash */).split('/')
-    const allowType = ['JPEG', 'PNG', 'GIF', 'SVG', 'TIFF', 'ICO', 'DVU', 'JPG', 'WEBP'];
-    if(!allowType.includes(firstSegment.split('.').pop().toUpperCase())) {
-        await next()
-        return
-    }
+    const allowedTypes = ['JPEG', 'PNG', 'GIF', 'SVG', 'TIFF', 'ICO', 'DVU', 'JPG', 'WEBP'];
     let id
     let modifiers
+    
     if (!idSegments.length && firstSegment) {
       id = firstSegment
       modifiers = qs.parse(query)
     } else {
-      id = decode(idSegments.join('/'))
+      id = decode(idSegments.join('/')) // decode is a shortend version of decodeURIComponent
       modifiers = Object.create(null)
       if (firstSegment !== '_') {
         for (const p of firstSegment.split(',')) {
@@ -31,11 +28,9 @@ function createMiddleware(ipx) {
       }
     }
 
-    if (!id) {
-      await next()
-      return
-    }
-    if (!Object.keys(modifiers).length) {
+    if (!id ||
+        !Object.keys(modifiers).length ||
+        !allowedTypes.includes(id.split('.').pop().toUpperCase())) {
       await next()
       return
     }
