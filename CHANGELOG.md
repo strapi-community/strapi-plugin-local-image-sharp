@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/strapi-community/strapi-plugin-local-image-sharp/compare/v1.3.0...v1.4.0) (2023-01-06)
+
+
+### Features
+
+* add cacheDir option to save generated file ([3b52e0f](https://github.com/strapi-community/strapi-plugin-local-image-sharp/commit/3b52e0f3b8ebfb537690bf970c0a340ddd36aeaa))
+
 ## [1.3.0](https://github.com/strapi-community/strapi-plugin-local-image-sharp/compare/v1.2.1...v1.3.0) (2023-01-06)
 
 
