@@ -21,6 +21,9 @@
     "strapi-server.js"
   ],
   "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix"
   },
@@ -36,7 +39,9 @@
   },
   "devDependencies": {
     "@strapi-community/eslint-config": "^0.4.3",
-    "eslint": "8.20.0"
+    "eslint": "8.20.0",
+    "@giscus/vue": "^2.2.6",
+    "vitepress": "^1.0.0-alpha.35"
   },
   "author": {
     "name": "Sacha Stafyniak",

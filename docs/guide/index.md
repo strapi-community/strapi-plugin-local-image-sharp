@@ -1,0 +1,59 @@
+---
+title: Quick Start Guide
+---
+
+# Quick Start Guide
+
+Convert any uploaded images with local provider using sharp modifier. 
+No extra configuration needed, the modifiers will be applied based on the url.
+
+> This is made using [ipx](https://github.com/unjs/ipx) 
+
+To install this plugin, run the following command in your Strapi project:
+
+```bash
+yarn add strapi-plugin-local-image-sharp
+```
+
+## Usage
+
+This plugin works by setting modifiers either the path, or in the query string parameters.
+
+- Original image:  
+  `http://localhost:1337/uploads/buffalo_56442f4096.png`
+- WebP (Path modifier):  
+  `http://localhost:1337/uploads/format_webp/buffalo_56442f4096.png`
+- WebP (Query parameters):  
+  `http://localhost:1337/uploads/buffalo_56442f4096.png?format=webp`
+
+
+
+### Using path modifiers
+
+Change format to `webp` and keep other things same as source:
+
+`http://localhost:1337/uploads/f_webp/buffalo_56442f4096.png`
+
+Keep original format `png` and set width to `200`:
+
+`http://localhost:1337/uploads/w_200/buffalo_56442f4096.png`
+
+You can combine modifiers using a coma, for example:
+Resize to `200x200px` using `embed` method and change format to `webp`:
+
+`http://localhost:1337/uploads/embed,f_webp,s_200x200/buffalo_56442f4096.png`
+
+### Using query parameters modifiers
+
+Change format to `webp` and keep other things same as source:
+
+`http://localhost:1337/uploads/buffalo_56442f4096.png?format=webp`
+
+Keep original format `png` and set width to `200`:
+
+`http://localhost:1337/uploads/buffalo_56442f4096.png?width=200`
+
+You can combine modifiers using a coma, for example:
+Resize to `200x200px` using `embed` method and change format to `webp`:
+
+`http://localhost:1337/uploads/buffalo_56442f4096.png?format=webp&resize=200x200&embed`
