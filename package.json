@@ -18,6 +18,7 @@
     "resize"
   ],
   "files": [
+    "src",
     "strapi-server.js"
   ],
   "scripts": {
@@ -25,12 +26,14 @@
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "eslint": "eslint .",
-    "eslint:fix": "eslint . --fix"
+    "eslint:fix": "eslint . --fix",
+    "release": "npx standard-version && git push --follow-tags origin main && npm publish"
   },
   "dependencies": {
     "@koa/router": "^10.1.1",
     "etag": "^1.8.1",
     "ipx": "^0.9.10",
+    "ohash": "^1.0.0",
     "qs": "^6.10.3",
     "ufo": "^0.8.5"
   },
@@ -38,9 +41,9 @@
     "@strapi/strapi": "^4.0.0"
   },
   "devDependencies": {
+    "@giscus/vue": "^2.2.6",
     "@strapi-community/eslint-config": "^0.4.3",
     "eslint": "8.20.0",
-    "@giscus/vue": "^2.2.6",
     "vitepress": "^1.0.0-alpha.35"
   },
   "author": {

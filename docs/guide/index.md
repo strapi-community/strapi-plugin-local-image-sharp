@@ -57,3 +57,44 @@ You can combine modifiers using a coma, for example:
 Resize to `200x200px` using `embed` method and change format to `webp`:
 
 `http://localhost:1337/uploads/buffalo_56442f4096.png?format=webp&resize=200x200&embed`
+
+
+
+## Configuration
+
+### `cacheDir`
+
+The directory where the generated files will be stored.  
+> *By default, no value is set, so cache is disabled, meaning that the image will be generated on every request.*
+
+You can set the cache directory using `STRAPI_PLUGIN_LOCAL_IMAGE_SHARP_CACHE_DIR` environment variable. Or you can set it in `config/plugins.js`:
+
+::: code-group
+```bash [enviroment variables]
+STRAPI_PLUGIN_LOCAL_IMAGE_SHARP_CACHE_DIR=.image-cache yarn start
+# or STRAPI_PLUGIN_LOCAL_IMAGE_SHARP_CACHE_DIR=.image-cache yarn develop
+```
+```js [config/plugins.js]
+'use strict';
+
+module.exports = {
+  // ...
+
+  'local-image-sharp': {
+    config: {
+      cacheDir: '.image-cache',
+    }
+  }
+
+  // ...
+}
+```
+:::
+
+::: info
+When providing a relative path, it will be resolved from the root of your project.
+:::
+
+::: tip
+Don't forget to add `.image-cache` to your `.gitignore` file.
+:::
