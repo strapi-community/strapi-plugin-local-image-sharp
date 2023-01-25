@@ -8,7 +8,7 @@ const { createMiddleware } = require('./middleware')
 
 function register({ strapi }) {
   const config = strapi.config.get('plugin.local-image-sharp')
-  config.srcDir = `${strapi.dirs?.static?.public ?? strapi.dirs?.public}/uploads`
+  config.srcDir = `${strapi.dirs?.static?.public ?? strapi.dirs?.public ?? "public"}/uploads`
 
   strapi.log.info(
     `Using Local Image Sharp plugin`
