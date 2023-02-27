@@ -38,7 +38,8 @@
     "ufo": "^0.8.5"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.0.0"
+    "@strapi/strapi": "^4.0.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@giscus/vue": "^2.2.6",
