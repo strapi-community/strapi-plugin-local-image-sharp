@@ -142,7 +142,9 @@ function createMiddleware(ipx) {
           writeFile(tempTypePath, `image/${format}`, "utf-8"),
           writeFile(tempEtagPath, etag, "utf-8"),
           writeFile(tempFilePath, data),
-        ]).catch(console.error);
+        ]).catch(() => {
+          // console.log(error);
+        });
       }
 
       ctx.set("ETag", etag);
@@ -163,7 +165,7 @@ function createMiddleware(ipx) {
         ? `IPX Error (${error.message})`
         : `IPX Error (${statusCode})`;
       strapi.log.debug(statusMessage);
-      console.error(error);
+      // console.error(error);
 
       ctx.status = statusCode;
     }
