@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-local-image-sharp",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Dynamically resize, format and optimize images based on url modifiers",
   "strapi": {
     "displayName": "Local Image Sharp",
@@ -38,9 +38,11 @@
     "ufo": "^0.8.5"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.0.0"
+    "@strapi/strapi": "^4.0.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.19.1",
     "@giscus/vue": "^2.2.6",
     "@strapi-community/eslint-config": "^0.4.3",
     "eslint": "8.20.0",
