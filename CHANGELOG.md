@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/strapi-community/strapi-plugin-local-image-sharp/compare/v1.4.0...v1.6.0) (2023-02-28)
+
+
+### Features
+
+* add `maxAge` option for Cache-Control HTTP response header ([#20](https://github.com/strapi-community/strapi-plugin-local-image-sharp/issues/20)) ([d81843b](https://github.com/strapi-community/strapi-plugin-local-image-sharp/commit/d81843bdeb4fd8611873c73c8b1275569a9980dd))
+
 ## [1.4.0](https://github.com/strapi-community/strapi-plugin-local-image-sharp/compare/v1.3.0...v1.4.0) (2023-01-06)
 
 
