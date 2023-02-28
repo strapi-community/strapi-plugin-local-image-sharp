@@ -89,6 +89,16 @@ module.exports = {
 };
 ```
 
+:::
+
+::: info
+When providing a relative path, it will be resolved from the root of your project.
+:::
+
+::: tip
+Don't forget to add `.image-cache` to your `.gitignore` file.
+:::
+
 ### `maxAge`
 
 You can set the `Cache-Control` HTTP response header to improve the load performance. It's a good practice cache static resources using HTTP caching. [See more here](https://developer.chrome.com/docs/lighthouse/performance/uses-long-cache-ttl)
@@ -108,13 +118,3 @@ module.exports = {
   // ...
 };
 ```
-
-:::
-
-::: info
-When providing a relative path, it will be resolved from the root of your project.
-:::
-
-::: tip
-Don't forget to add `.image-cache` to your `.gitignore` file.
-:::

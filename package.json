@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-local-image-sharp",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Dynamically resize, format and optimize images based on url modifiers",
   "strapi": {
     "displayName": "Local Image Sharp",
