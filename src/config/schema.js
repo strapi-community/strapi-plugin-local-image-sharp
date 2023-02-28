@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const yup = require("yup");
+const yup = require('yup');
 
 const pluginConfigSchema = yup.object().shape({
   cacheDir: yup.string(),
