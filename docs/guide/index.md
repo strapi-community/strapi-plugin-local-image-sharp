@@ -94,19 +94,20 @@ module.exports = {
 You can set the `Cache-Control` HTTP response header to improve the load performance. It's a good practice cache static resources using HTTP caching. [See more here](https://developer.chrome.com/docs/lighthouse/performance/uses-long-cache-ttl)
 
 ```js [config/plugins.js]
-'use strict';
+"use strict";
 
 module.exports = {
   // ...
 
-  'local-image-sharp': {
+  "local-image-sharp": {
     config: {
       maxAge: 31536000, // which corresponds to 1 year: 60 seconds × 60 minutes × 24 hours × 365 days = 31536000 seconds.
-    }
-  }
+    },
+  },
 
   // ...
-}
+};
+```
 
 :::
 
@@ -117,4 +118,3 @@ When providing a relative path, it will be resolved from the root of your projec
 ::: tip
 Don't forget to add `.image-cache` to your `.gitignore` file.
 :::
-```
