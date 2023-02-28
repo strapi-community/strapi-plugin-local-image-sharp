@@ -1,6 +1,6 @@
 {
   "parser": "@babel/eslint-parser",
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "env": {
     "commonjs": true,
     "es6": true,
@@ -18,11 +18,14 @@
   "globals": {
     "strapi": true
   },
+  "plugins": ["prettier"],
+
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["error", "unix"],
     "no-console": 0,
-    "quotes": ["error", "single"],
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "semi": ["error", "always"]
   }
 }

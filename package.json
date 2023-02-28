@@ -46,6 +46,8 @@
     "@giscus/vue": "^2.2.6",
     "@strapi-community/eslint-config": "^0.4.3",
     "eslint": "8.20.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4",
     "vitepress": "^1.0.0-alpha.35"
   },
   "author": {

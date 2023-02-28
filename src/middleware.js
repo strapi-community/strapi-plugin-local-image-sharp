@@ -1,32 +1,32 @@
-"use strict";
+'use strict';
 
-const qs = require("qs");
-const { decode } = require("ufo");
-const { hash } = require("ohash");
-const { join } = require("path");
-const { createReadStream, existsSync } = require("fs");
-const { writeFile, readFile } = require("fs/promises");
-const getEtag = require("etag");
+const qs = require('qs');
+const { decode } = require('ufo');
+const { hash } = require('ohash');
+const { join } = require('path');
+const { createReadStream, existsSync } = require('fs');
+const { writeFile, readFile } = require('fs/promises');
+const getEtag = require('etag');
 
 function createMiddleware(ipx) {
-  const config = strapi.config.get("plugin.local-image-sharp");
+  const config = strapi.config.get('plugin.local-image-sharp');
 
   return async function ipxMiddleware(ctx, next) {
-    const [url, query] = ctx.req.url.replace("/uploads", "").split("?");
-    const [firstSegment = "", ...idSegments] = url
+    const [url, query] = ctx.req.url.replace('/uploads', '').split('?');
+    const [firstSegment = '', ...idSegments] = url
       .substr(1 /* leading slash */)
-      .split("/");
+      .split('/');
     const allowedTypes = [
-      "JPEG",
-      "PNG",
-      "GIF",
-      "SVG",
-      "TIFF",
-      "ICO",
-      "DVU",
-      "JPG",
-      "WEBP",
-      "AVIF",
+      'JPEG',
+      'PNG',
+      'GIF',
+      'SVG',
+      'TIFF',
+      'ICO',
+      'DVU',
+      'JPG',
+      'WEBP',
+      'AVIF',
     ];
     let id;
     let modifiers;
@@ -41,11 +41,11 @@ function createMiddleware(ipx) {
       modifiers = qs.parse(query);
     } else {
       // extract modifiers from url segments
-      id = decode(idSegments.join("/")); // decode is a shortend version of decodeURIComponent
+      id = decode(idSegments.join('/')); // decode is a shortend version of decodeURIComponent
       modifiers = Object.create(null);
-      if (firstSegment !== "_") {
-        for (const p of firstSegment.split(",")) {
-          const [key, value = ""] = p.split("_");
+      if (firstSegment !== '_') {
+        for (const p of firstSegment.split(',')) {
+          const [key, value = ''] = p.split('_');
           modifiers[key] = decode(value);
         }
       }
@@ -55,7 +55,7 @@ function createMiddleware(ipx) {
     if (
       !id ||
       !Object.keys(modifiers).length ||
-      !allowedTypes.includes(id.split(".").pop().toUpperCase())
+      !allowedTypes.includes(id.split('.').pop().toUpperCase())
     ) {
       await next();
       return;
@@ -72,13 +72,13 @@ function createMiddleware(ipx) {
       if (existsSync(tempFilePath)) {
         try {
           const [type, etag] = await Promise.all([
-            readFile(tempTypePath, "utf-8"),
-            readFile(tempEtagPath, "utf-8"),
+            readFile(tempTypePath, 'utf-8'),
+            readFile(tempEtagPath, 'utf-8'),
           ]);
           const stream = createReadStream(tempFilePath);
 
-          ctx.set("ETag", etag);
-          if (etag && ctx.req.headers["if-none-match"] === etag) {
+          ctx.set('ETag', etag);
+          if (etag && ctx.req.headers['if-none-match'] === etag) {
             ctx.status = 304;
             return;
           }
@@ -86,14 +86,14 @@ function createMiddleware(ipx) {
           // Cache-Control
           if (config.maxAge) {
             ctx.set(
-              "Cache-Control",
+              'Cache-Control',
               `max-age=${+config.maxAge}, public, s-maxage=${+config.maxAge}`
             );
           }
 
           // Mime
           if (type) {
-            ctx.set("Content-Type", type);
+            ctx.set('Content-Type', type);
           }
           ctx.body = stream;
           return;
@@ -112,20 +112,20 @@ function createMiddleware(ipx) {
 
       // Caching headers
       if (src.mtime) {
-        if (ctx.req.headers["if-modified-since"]) {
-          if (new Date(ctx.req.headers["if-modified-since"]) >= src.mtime) {
+        if (ctx.req.headers['if-modified-since']) {
+          if (new Date(ctx.req.headers['if-modified-since']) >= src.mtime) {
             ctx.status = 304;
             return;
           }
         }
-        ctx.set("Last-Modified", `${+src.mtime}`);
+        ctx.set('Last-Modified', `${+src.mtime}`);
       }
 
       const maxAge = src.maxAge ?? config.maxAge;
 
       if (maxAge) {
         ctx.set(
-          "Cache-Control",
+          'Cache-Control',
           `max-age=${+maxAge}, public, s-maxage=${+maxAge}`
         );
       }
@@ -139,23 +139,23 @@ function createMiddleware(ipx) {
       // If cache enabled, write image to temp dir
       if (tempTypePath && tempFilePath) {
         Promise.all([
-          writeFile(tempTypePath, `image/${format}`, "utf-8"),
-          writeFile(tempEtagPath, etag, "utf-8"),
+          writeFile(tempTypePath, `image/${format}`, 'utf-8'),
+          writeFile(tempEtagPath, etag, 'utf-8'),
           writeFile(tempFilePath, data),
         ]).catch(() => {
-          // console.log(error);
+          // console.error(error);
         });
       }
 
-      ctx.set("ETag", etag);
-      if (etag && ctx.req.headers["if-none-match"] === etag) {
+      ctx.set('ETag', etag);
+      if (etag && ctx.req.headers['if-none-match'] === etag) {
         ctx.status = 304;
         return;
       }
 
       // Mime
       if (format) {
-        ctx.set("Content-Type", `image/${format}`);
+        ctx.set('Content-Type', `image/${format}`);
       }
 
       ctx.body = data;
