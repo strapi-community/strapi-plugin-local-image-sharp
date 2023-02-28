@@ -44,6 +44,7 @@
   "devDependencies": {
     "@giscus/vue": "^2.2.6",
     "@strapi-community/eslint-config": "^0.4.3",
+    "babel-eslint": "^10.1.0",
     "eslint": "8.20.0",
     "vitepress": "^1.0.0-alpha.35"
   },
