@@ -2,13 +2,13 @@
 
 const Router = require('@koa/router')
 const { createIPX } = require('ipx')
-const { resolve } = require('path') 
+const { resolve } = require('path')
 const { existsSync, mkdirSync } = require('fs')
 const { createMiddleware } = require('./middleware')
 
 function register({ strapi }) {
   const config = strapi.config.get('plugin.local-image-sharp')
-  config.srcDir = `${strapi.dirs?.static?.public ?? strapi.dirs?.public}/uploads`
+  config.srcDir = strapi.dirs?.static?.public ?? strapi.dirs?.public
 
   strapi.log.info(
     `Using Local Image Sharp plugin`
@@ -36,14 +36,14 @@ function register({ strapi }) {
     );
   }
 
-
-  const ipx = createIPX({
-    dir: config.srcDir,
-  })
   const router = new Router()
-  const middeware = createMiddleware(ipx)
+  config.paths.forEach(path => {
+    const ipx = createIPX({
+      dir: config.srcDir + path,
+    })
 
-  router.get('/uploads/(.*)', middeware)
+    router.get(path + '/(.*)', createMiddleware(ipx))
+  })
 
   strapi.server.use(router.routes())
 }
