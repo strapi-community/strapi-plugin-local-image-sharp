@@ -118,3 +118,28 @@ module.exports = {
   // ...
 };
 ```
+
+### `paths`
+
+Add custom paths to images if you use more than the default path '/uploads'.
+
+> _By default, '/uploads' is set, to cache all default upload routes._
+
+You can set the paths in `config/plugins.js`:
+
+
+```js [config/plugins.js]
+"use strict";
+
+module.exports = {
+  // ...
+
+  "local-image-sharp": {
+    config: {
+      paths: ['/uploads','/custom'],
+    },
+  },
+
+  // ...
+};
+```
