@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/strapi-community/strapi-plugin-local-image-sharp/compare/v1.6.0...v1.7.0) (2023-07-31)
+
+
+### Features
+
+* allow to configure custom paths ([#29](https://github.com/strapi-community/strapi-plugin-local-image-sharp/issues/29)) ([0992821](https://github.com/strapi-community/strapi-plugin-local-image-sharp/commit/0992821469bed878534ed8b1c5058447f2a8151d))
+
+
+### Bug Fixes
+
+* docs ([#22](https://github.com/strapi-community/strapi-plugin-local-image-sharp/issues/22)) ([c1519a4](https://github.com/strapi-community/strapi-plugin-local-image-sharp/commit/c1519a4b316a8a2501ac0f3b60029ab5a9102d75))
+
 ## [1.6.0](https://github.com/strapi-community/strapi-plugin-local-image-sharp/compare/v1.4.0...v1.6.0) (2023-02-28)
 
 
