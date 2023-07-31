@@ -42,7 +42,7 @@ function register({ strapi }) {
       dir: config.srcDir + path,
     })
 
-    router.get(path + '/(.*)', createMiddleware(ipx))
+    router.get(`${path}/(.*)`, createMiddleware(ipx))
   })
 
   strapi.server.use(router.routes())

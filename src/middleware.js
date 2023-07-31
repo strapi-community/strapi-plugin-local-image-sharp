@@ -23,7 +23,8 @@ function createMiddleware(ipx) {
       const statusCode = 500;
       const statusMessage = 'No path found';
       strapi.log.debug(statusMessage);
-      return ctx.status = statusCode;
+      ctx.status = statusCode
+      return;
     }
 
     const [url, query] = path.split('?');
