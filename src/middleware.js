@@ -12,7 +12,21 @@ function createMiddleware(ipx) {
   const config = strapi.config.get('plugin.local-image-sharp');
 
   return async function ipxMiddleware(ctx, next) {
-    const [url, query] = ctx.req.url.replace('/uploads', '').split('?');
+    let path = null;
+    config.paths.forEach(target => {
+      if (ctx.req.url.includes(target)) {
+        path = ctx.req.url.split(target).join('');
+      }
+    });
+
+    if (!path) {
+      const statusCode = 500;
+      const statusMessage = 'No path found';
+      strapi.log.debug(statusMessage);
+      return ctx.status = statusCode;
+    }
+
+    const [url, query] = path.split('?');
     const [firstSegment = '', ...idSegments] = url
       .substr(1 /* leading slash */)
       .split('/');
@@ -105,7 +119,6 @@ function createMiddleware(ipx) {
 
     // Create request
     const img = ipx(id, modifiers, ctx.req.options);
-
     // Get image meta from source
     try {
       const src = await img.src();
