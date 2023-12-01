@@ -48,6 +48,9 @@
     "eslint": "8.20.0",
     "vitepress": "^1.0.0-alpha.35"
   },
+  "overrides": {
+    "sharp": "^0.33.0"
+  },
   "author": {
     "name": "Sacha Stafyniak",
     "email": "sacha@digisquad.io",
