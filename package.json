@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-local-image-sharp",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Dynamically resize, format and optimize images based on url modifiers",
   "strapi": {
     "displayName": "Local Image Sharp",
@@ -30,23 +30,23 @@
     "release": "npx standard-version && git push --follow-tags origin main && npm publish"
   },
   "dependencies": {
-    "@koa/router": "^10.1.1",
+    "@koa/router": "^12.0.1",
     "etag": "^1.8.1",
-    "ipx": "^0.9.10",
-    "ohash": "^1.0.0",
-    "qs": "^6.10.3",
-    "ufo": "^0.8.5"
+    "ipx": "^2.1.0",
+    "ohash": "^1.1.3",
+    "qs": "^6.11.2",
+    "ufo": "^1.4.0"
   },
   "peerDependencies": {
     "@strapi/strapi": "^4.0.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.19.1",
-    "@giscus/vue": "^2.2.6",
+    "@babel/eslint-parser": "^7.23.10",
+    "@giscus/vue": "^2.4.0",
     "@strapi-community/eslint-config": "^0.4.3",
-    "eslint": "8.20.0",
-    "vitepress": "^1.0.0-alpha.35"
+    "eslint": "8.56.0",
+    "vitepress": "^1.0.0-rc.42"
   },
   "author": {
     "name": "Sacha Stafyniak",
@@ -70,7 +70,7 @@
   },
   "homepage": "https://github.com/strapi-community/strapi-plugin-local-image-sharp",
   "engines": {
-    "node": ">=14.x.x <=18.x.x",
+    "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
